@@ -31,7 +31,7 @@ gem 'faraday'
 gem 'figaro'
 gem 'telegram-bot'
 gem 'telegram-bot-types'
-gem 'rserve-simpler'
+gem 'rinruby'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
