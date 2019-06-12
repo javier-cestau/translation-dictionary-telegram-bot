@@ -86,7 +86,7 @@ Rails.application.configure do
   config.telegram_updates_controller.session_store = :dalli_store
   
   routes.default_url_options = {
-    host: '72676366.ngrok.io',
+    host: 'translation-telegram-bot.herokuapp.com',
     # host: 'translation-telegram-bot.herokuapp.com',
     protocol: 'https'
   }
