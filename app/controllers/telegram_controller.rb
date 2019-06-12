@@ -32,7 +32,7 @@ class TelegramController < Telegram::Bot::UpdatesController
             return respond_with :message, text: 'No emojis pls 😡', parse_mode: 'Markdown'        
         end
         r = Rserve::Simpler.new
-        r.command "source('#{Rails.root}/script.R')"
+        r.command "source('#{Rails.root}/R/script.R')"
         a = r.converse ('x')
         puts a
         language_from = WORDREFERENCE_LANGUAGES[@chat_config.language_source.to_sym][:icon]
