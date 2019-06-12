@@ -1,0 +1,35 @@
+en:
+  app:
+    error: '🚨 We are experiencing some problems, try again later.'
+  command:
+    language_source:
+      error: | 
+        ⚠️ Sorry, We did not regonize the language that you wrote. 
+        Please use /language again to set up the translation configuration.
+      text: |
+        From what language would you like to translate? 
+        Select one of the following codes: 
+        %{options}
+    language_translation:
+      text: |
+        For *%{language_source}* we have available the following languages:
+        %{options}
+  languages:
+    en: 'English'
+    es: 'Spanish'
+    fr: 'French'
+    it: 'Italian'
+    de: 'German'
+    nl: 'Deutch'
+    sv: 'Swedish'
+    ru: 'Russian'
+    pt: 'Portuguese'
+    pl: 'Polish'
+    ro: 'Romanian'
+    cz: 'Czech'
+    gr: 'Greek'
+    tr: 'Turkish'
+    zh: 'Chinese'
+    ja: 'Japanese'
+    ko: 'Korean'
+    ar: 'Arabic'

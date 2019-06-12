@@ -1,0 +1,11 @@
+{
+  "name": "dictionary-bot",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "javier <javier.cestau1209@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "preset-up":  "nohup ngrok http 3000 & node script.js",
+    "set-up": "sudo docker-compose up -d && sudo docker-compose exec javierc-bot bash"
+  }
+}
