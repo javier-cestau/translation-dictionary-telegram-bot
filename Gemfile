@@ -31,6 +31,7 @@ gem 'faraday'
 gem 'figaro'
 gem 'telegram-bot'
 gem 'telegram-bot-types'
+gem 'rserve-simpler'
 gem 'rinruby'
 
 group :development, :test do

@@ -55,8 +55,7 @@ Rails.application.configure do
   
   config.telegram_updates_controller.session_store = :memory_store
   routes.default_url_options = {
-    host: 'de74b719.ngrok.io',
-    # host: 'translation-telegram-bot.herokuapp.com',
+    host: ENV['HOST_DEV_TELEGRAM'],
     protocol: 'https'
   }
   
