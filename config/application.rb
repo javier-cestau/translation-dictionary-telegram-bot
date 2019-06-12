@@ -17,6 +17,7 @@ require 'rserve/simpler'
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
+system('R CMD Rserve --no-save')
 
 module TelegramBot
   class Application < Rails::Application
