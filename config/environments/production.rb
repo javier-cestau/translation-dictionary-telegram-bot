@@ -84,8 +84,6 @@ Rails.application.configure do
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
 
-  config.telegram_updates_controller.session_store = :dalli_store
-  
   routes.default_url_options = {
     host: 'translation-telegram-bot.herokuapp.com',
     # host: 'translation-telegram-bot.herokuapp.com',
