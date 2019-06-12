@@ -89,6 +89,5 @@ Rails.application.configure do
     # host: 'translation-telegram-bot.herokuapp.com',
     protocol: 'https'
   }
-
   
 end
