@@ -17,4 +17,5 @@ translate <- function(url){
   
   assign("to_word", URLencode(to_word),  envir = .GlobalEnv)
   assign("from_word", URLencode(from_word),  envir = .GlobalEnv)
+  closeAllConnections() 
 }
