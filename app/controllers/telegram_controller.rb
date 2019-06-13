@@ -33,13 +33,24 @@ class TelegramController < Telegram::Bot::UpdatesController
         end
 
         r = RHandler.new
-        r.source
-        puts r.get_var('x')
+        r.source(
+                'translate.R', 
+                 message_text,
+                 @chat_config.language_source,
+                 @chat_config.language_translation
+        ) 
+
+        from_word_unformatted =  r.get_var('from_word')
+        
+        from_word_formatted = from_word_unformatted.class == Array ?  from_word_unformatted.uniq.map(&:strip).join(', ') : from_word_unformatted
+
+        to_word_unformatted =  r.get_var('to_word')
+        to_word_formatted = to_word_unformatted.class == Array ?  to_word_unformatted.uniq.map(&:strip).join(', ') : to_word_unformatted
 
         language_from = WORDREFERENCE_LANGUAGES[@chat_config.language_source.to_sym][:icon]
         language_to = "#{t("languages.#{@chat_config.language_translation}")} #{WORDREFERENCE_LANGUAGES[@chat_config.language_translation.to_sym][:icon]}"
         text = "#{language_from} *#{message_text}* to #{language_to}: \n" \
-        "- Hola: Hi"
+        "- #{from_word_formatted}: #{to_word_formatted}"
         
         respond_with :message, text: text, parse_mode: 'Markdown'       
     

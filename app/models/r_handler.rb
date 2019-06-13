@@ -3,14 +3,23 @@ class RHandler
       @r = Rails.env.production? ? ::RinRuby.new({echo: false})
                                  : ::Rserve::Simpler.new
     end
-    def source
-        Rails.env.production? ? @r.eval("source('#{Rails.root}/R/script.R')")
-                              : @r.command("source('#{Rails.root}/R/script.R')")
+    def source(file, word, language_source, language_translation)
+        url = "https://www.wordreference.com/#{language_source}#{language_translation}/#{word}"
+        eval_command = <<-EOF
+                        source('#{Rails.root}/R/#{file}')
+                        translate('#{url}')
+                    EOF
+                    
+        Rails.env.production? ? @r.eval(eval_command)
+                              : @r.command(eval_command)
     end
 
     def get_var(variable)
-        Rails.env.production? ? @r.pull(variable)
-                              : @r.converse(variable)
+        results = Rails.env.production? ? @r.pull(variable)
+                                        : @r.converse(variable)
+
+        results.class == Array ? results.map { |string| CGI.unescape(string) }
+                               : CGI.unescape(results)
     end
 
     def quit
