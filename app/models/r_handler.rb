@@ -4,7 +4,7 @@ class RHandler
                                  : ::Rserve::Simpler.new
     end
     def source(file, word, language_source, language_translation)
-        url = "https://www.google.com/"
+        url = "https://www.wordreference.com/#{language_source}#{language_translation}/#{word}"
 
         conn = Faraday.new do |connection|
             connection.use FaradayMiddleware::FollowRedirects
