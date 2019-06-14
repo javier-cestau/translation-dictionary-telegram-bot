@@ -2,9 +2,8 @@ library(dplyr)
 library(rvest)
 library(stringi)
 
-translate <- function(url_request){
-  conn <- url(url_request, 'rb')
-  site <- read_html(conn, encoding = "utf8")
+translate <- function(url){
+  site <- read_html(iconv(url, to = "UTF-8"), encoding = "utf8")
   
   from_word <- site %>%
     html_nodes('#articleWRD table.WRD:first-of-type .even .FrWrd strong') %>%
