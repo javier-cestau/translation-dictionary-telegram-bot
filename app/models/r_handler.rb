@@ -6,17 +6,18 @@ class RHandler
     def source(file, word, language_source, language_translation)
         url = "https://www.wordreference.com/#{language_source}#{language_translation}/#{word}"
 
-
         conn = Faraday.new do |connection|
             connection.use FaradayMiddleware::FollowRedirects
             connection.response :encoding  # use Faraday::Encoding middleware
             connection.adapter Faraday.default_adapter # net/http
         end
-  
+        puts 'making the request'
         page_html = conn.get(url).body
         
+        puts 'creating file'
         File.open("#{Rails.root}/public/word.html", 'w') {|f| f.write(page_html) }
         
+        puts 'executing R'
         eval_command = <<-EOF
                         source('#{Rails.root}/R/#{file}')
                         translate('#{Rails.root}/public/word.html')
