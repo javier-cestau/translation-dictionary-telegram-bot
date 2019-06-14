@@ -4,7 +4,7 @@ library(stringi)
 library(httr)
 
 translate <- function(url){
-  site <- read_html(iconv(url, to = "UTF-8"), encoding = "utf8", timeout = 60)
+  site <- read_html(url)
   
   from_word <- site %>%
     html_nodes('#articleWRD table.WRD:first-of-type .even .FrWrd strong') %>%

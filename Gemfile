@@ -28,6 +28,8 @@ gem 'bootsnap', '>= 1.1.0', require: false
 gem 'dalli'
 gem "down"
 gem 'faraday'
+gem 'faraday_middleware'
+gem 'faraday-encoding'
 gem 'figaro'
 gem 'telegram-bot'
 gem 'telegram-bot-types'
