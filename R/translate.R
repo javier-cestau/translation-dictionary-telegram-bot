@@ -1,7 +1,6 @@
 library(dplyr)
 library(rvest)
 library(stringi)
-library(httr)
 
 translate <- function(url){
   site <- read_html(url)
@@ -15,7 +14,7 @@ translate <- function(url){
     html_nodes(xpath = 'text()') %>%
     html_text()
   
-  assign("to_word", URLencode(to_word),  envir = .GlobalEnv)
-  assign("from_word", URLencode(from_word),  envir = .GlobalEnv)
+  assign("to_word", sapply(to_word, URLencode),  envir = .GlobalEnv)
+  assign("from_word", sapply(from_word, URLencode),  envir = .GlobalEnv)
 }
 
