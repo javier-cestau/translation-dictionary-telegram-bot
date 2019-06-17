@@ -3,15 +3,15 @@ class RHandler
       @r = Rails.env.production? ? ::RinRuby.new({echo: false})
                                  : ::Rserve::Simpler.new
     end
+
     def source(file, word, language_source, language_translation)
         url_to_scrap = "https://www.wordreference.com/#{language_source}#{language_translation}/#{word}"
-
-                
+     
         url = "http://api.scraperapi.com?api_key=#{ENV['SCARPER_API_KEY']}&url=#{url_to_scrap}"
 
         eval_command = <<-EOF
                         source('#{Rails.root}/R/#{file}')
-                        translate('#{url}')
+                        translate('#{Rails.env.production? ? url : url_to_scrap }')
                     EOF
                     
         Rails.env.production? ? @r.eval(eval_command)
