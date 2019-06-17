@@ -7,21 +7,11 @@ class RHandler
         url_to_scrap = "https://www.wordreference.com/#{language_source}#{language_translation}/#{word}"
 
                 
-        url = 'http://api.scraperapi.com'
-        query = {
-            'api_key' => 'c937f10047ebff964b3638fd79c39bf5',
-            'url' => url_to_scrap
-        }
+        url = "http://api.scraperapi.com?api_key=#{ENV['SCARPER_API_KEY']}&url=#{url_to_scrap}"
 
-        response = HTTParty.get(url, query: query)
-        page_html = response.body
-        puts 'creating file'
-        File.open("#{Rails.root}/public/word.html", 'w') {|f| f.write(page_html) }
-        
-        puts 'executing R'
         eval_command = <<-EOF
                         source('#{Rails.root}/R/#{file}')
-                        translate('#{Rails.root}/public/word.html')
+                        translate('#{url}')
                     EOF
                     
         Rails.env.production? ? @r.eval(eval_command)
