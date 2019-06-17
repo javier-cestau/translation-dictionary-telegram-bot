@@ -4,16 +4,17 @@ class RHandler
                                  : ::Rserve::Simpler.new
     end
     def source(file, word, language_source, language_translation)
-        url = "https://www.wordreference.com/#{language_source}#{language_translation}/#{word}"
+        url_to_scrap = "https://www.wordreference.com/#{language_source}#{language_translation}/#{word}"
 
-        conn = Faraday.new do |connection|
-            connection.use FaradayMiddleware::FollowRedirects
-            connection.response :encoding  # use Faraday::Encoding middleware
-            connection.adapter Faraday.default_adapter # net/http
-        end
-        puts 'making the request'
-        page_html = conn.get(url).body
-        
+                
+        url = 'http://api.scraperapi.com'
+        query = {
+            'api_key' => 'c937f10047ebff964b3638fd79c39bf5',
+            'url' => url_to_scrap
+        }
+
+        response = HTTParty.get(url, query: query)
+        page_html = response.body
         puts 'creating file'
         File.open("#{Rails.root}/public/word.html", 'w') {|f| f.write(page_html) }
         

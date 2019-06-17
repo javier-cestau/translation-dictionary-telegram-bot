@@ -28,6 +28,7 @@ gem 'bootsnap', '>= 1.1.0', require: false
 gem 'dalli'
 gem "down"
 gem 'faraday'
+gem 'httparty'
 gem 'faraday_middleware'
 gem 'faraday-encoding'
 gem 'figaro'
