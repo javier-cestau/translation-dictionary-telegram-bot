@@ -4,4 +4,5 @@ Rails.application.routes.draw do
 
   get '/status', to: 'status#index'
 
+  post '/telegram/webhook/succeeded', to: 'telegram_webhook#succeeded'
 end

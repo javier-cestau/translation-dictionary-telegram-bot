@@ -4,14 +4,14 @@ class RHandler
                                  : ::Rserve::Simpler.new
     end
 
-    def source(file, word, language_source, language_translation)
-        url_to_scrap = "https://www.wordreference.com/#{language_source}#{language_translation}/#{word}"
+    def source(file, html, word)
+        format_word = I18n.transliterate(word.parameterize)
+        
+        File.open("#{Rails.root}/public/translations/#{format_word}.html", 'w') {|f| f.write(html) }
      
-        url = "http://api.scraperapi.com?api_key=#{ENV['SCARPER_API_KEY']}&url=#{url_to_scrap}"
-
         eval_command = <<-EOF
                         source('#{Rails.root}/R/#{file}')
-                        translate('#{Rails.env.production? ? url : url_to_scrap }')
+                        translate('#{Rails.root}/public/translations/#{format_word}.html')
                     EOF
                     
         Rails.env.production? ? @r.eval(eval_command)

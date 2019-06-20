@@ -1,6 +1,6 @@
 class TelegramController < Telegram::Bot::UpdatesController
     include Telegram::Bot::UpdatesController::MessageContext
-    include Telegram::Bot::UpdatesController::CallbackQueryContext
+    
     before_action :set_locale
     before_action :find_chat
     
@@ -31,28 +31,35 @@ class TelegramController < Telegram::Bot::UpdatesController
         if message_text.length == 0
             return respond_with :message, text: 'No emojis pls 😡', parse_mode: 'Markdown'        
         end
-
-        r = RHandler.new
-        r.source(
-                'translate.R', 
-                 message_text,
-                 @chat_config.language_source,
-                 @chat_config.language_translation
-        ) 
-
-        from_word_unformatted =  r.get_var('from_word')
-        to_word_unformatted =  r.get_var('to_word')
         
-        from_word_formatted = from_word_unformatted.class == Array ?  from_word_unformatted.uniq.map(&:strip).join(', ') : from_word_unformatted
-        to_word_formatted = to_word_unformatted.class == Array ?  to_word_unformatted.uniq.map(&:strip).join(', ') : to_word_unformatted
+        url = "https://www.wordreference.com/#{@chat_config.language_source}#{@chat_config.language_translation}/#{message_text}"
 
-        language_from = WORDREFERENCE_LANGUAGES[@chat_config.language_source.to_sym][:icon]
-        language_to = "#{t("languages.#{@chat_config.language_translation}")} #{WORDREFERENCE_LANGUAGES[@chat_config.language_translation.to_sym][:icon]}"
-        text = "#{language_from} *#{message_text}* to #{language_to}: \n" \
-        "- #{from_word_formatted}: #{to_word_formatted}"
-        
-        respond_with :message, text: text, parse_mode: 'Markdown'       
-    
+        RestClient.post("https://api.apify.com/v2/actor-tasks/YbgZrdoCgeBEANz9Z/runs?token=5BmsiEQDYNkrdrwFb9QBAwP7k&ui=1", 
+            {
+                "startUrls": [
+                    {
+                    "url": url,
+                    "method": "GET"
+                    }
+                ],
+                "pseudoUrls": [
+                    {
+                    "purl": url,
+                    "method": "GET"
+                    }
+                ],
+                "customData": {
+                    "chat_id": @chat_config.telegram_chat_id,
+                    "message_text": message_text
+                }
+            }.to_json,
+            { 
+                content_type: :json, 
+                accept: :json
+            }
+            )   
+        respond_with :message, text: 'loading...', parse_mode: 'Markdown'       
+
     rescue => e
         puts e.message
         respond_with :message, text: t('app.error'), parse_mode: 'Markdown'       
