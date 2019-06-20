@@ -34,7 +34,7 @@ class TelegramController < Telegram::Bot::UpdatesController
         
         url = "https://www.wordreference.com/#{@chat_config.language_source}#{@chat_config.language_translation}/#{message_text}"
 
-        RestClient.post("https://api.apify.com/v2/actor-tasks/YbgZrdoCgeBEANz9Z/runs?token=5BmsiEQDYNkrdrwFb9QBAwP7k&ui=1", 
+        RestClient.post(ENV['APIFY_URL']), 
             {
                 "startUrls": [
                     {
@@ -56,8 +56,8 @@ class TelegramController < Telegram::Bot::UpdatesController
             { 
                 content_type: :json, 
                 accept: :json
-            }
-            )   
+            })   
+            
         respond_with :message, text: 'loading...', parse_mode: 'Markdown'       
 
     rescue => e
