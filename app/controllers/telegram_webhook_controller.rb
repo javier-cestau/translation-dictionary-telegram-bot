@@ -1,7 +1,7 @@
 class TelegramWebhookController < ApplicationController
 
     def succeeded
-        body = JSON.parse(RestClient.get("https://api.apify.com/v2/datasets/#{params['resource']}/items?token=5BmsiEQDYNkrdrwFb9QBAwP7k&ui=1").body)[0]        
+        body = JSON.parse(RestClient.get(ENV['APIFY_URL_DATASET']).body)[0]        
         @chat_config = Chat.find_or_create_by(telegram_chat_id: body['chat_id'])
         message_text = body['message_text']
         
