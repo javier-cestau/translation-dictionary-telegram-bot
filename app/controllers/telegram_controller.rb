@@ -34,7 +34,7 @@ class TelegramController < Telegram::Bot::UpdatesController
         
         url = "https://www.wordreference.com/#{@chat_config.language_source}#{@chat_config.language_translation}/#{message_text}"
 
-        RestClient.post(ENV['APIFY_URL']), 
+        RestClient.post(ENV['APIFY_URL'], 
             {
                 "startUrls": [
                     {
