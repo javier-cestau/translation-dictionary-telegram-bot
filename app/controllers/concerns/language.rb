@@ -14,8 +14,8 @@ module Language
     end
      
     def language_source(language_source= '',*)
-        language_source_code = language_source.length != 2 ? convert_word_language_to_code(language_source) 
-                                                           : language_source
+        language_source_code = language_source.length != 2 ? convert_word_language_to_code(language_source.downcase) 
+                                                           : language_source.downcase
 
         if language_source_code.nil?
             return respond_with :message, text: t('command.language_source.error'), parse_mode: 'Markdown'
@@ -37,8 +37,8 @@ module Language
  
  
     def language_translation(translation= '',*)
-        translation_code = translation.length != 2 ? convert_word_language_to_code(translation) 
-                                                   : translation
+        translation_code = translation.length != 2 ? convert_word_language_to_code(translation.downcase) 
+                                                   : translation.downcase
         if translation_code.nil?
             return respond_with :message, text: t('command.language_source.error'), parse_mode: 'Markdown'
         end       
