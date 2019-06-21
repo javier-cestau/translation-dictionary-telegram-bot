@@ -12,6 +12,7 @@ require "action_view/railtie"
 require "action_cable/engine"
 require "action_cable/engine"
 require 'rserve/simpler' unless Rails.env.production?
+require './lib/translation/message'
 
 # require "sprockets/railtie"
 # require "rails/test_unit/railtie"

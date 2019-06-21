@@ -4,14 +4,11 @@ class RHandler
                                  : ::Rserve::Simpler.new
     end
 
-    def source(file, html, word)
-        format_word = I18n.transliterate(word.parameterize)
-        
-        File.open("#{Rails.root}/public/translations/#{format_word}.html", 'w') {|f| f.write(html) }
-     
+    def source(file, path_to_scrap)
+       
         eval_command = <<-EOF
                         source('#{Rails.root}/R/#{file}')
-                        translate('#{Rails.root}/public/translations/#{format_word}.html')
+                        translate('#{path_to_scrap}')
                     EOF
                     
         Rails.env.production? ? @r.eval(eval_command)

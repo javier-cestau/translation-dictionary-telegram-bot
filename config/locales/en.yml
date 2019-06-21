@@ -1,4 +1,7 @@
 en:
+  service:
+    apify:
+      translating: 'Translating...'
   app:
     error: '🚨 We are experiencing some problems, try again later.'
   command:

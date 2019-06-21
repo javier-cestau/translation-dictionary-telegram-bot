@@ -31,34 +31,9 @@ class TelegramController < Telegram::Bot::UpdatesController
         if message_text.length == 0
             return respond_with :message, text: 'No emojis pls 😡', parse_mode: 'Markdown'        
         end
-        
-        url = "https://www.wordreference.com/#{@chat_config.language_source}#{@chat_config.language_translation}/#{message_text}"
 
-        RestClient.post(ENV['APIFY_URL'], 
-            {
-                "startUrls": [
-                    {
-                    "url": url,
-                    "method": "GET"
-                    }
-                ],
-                "pseudoUrls": [
-                    {
-                    "purl": url,
-                    "method": "GET"
-                    }
-                ],
-                "customData": {
-                    "chat_id": @chat_config.telegram_chat_id,
-                    "message_text": message_text
-                }
-            }.to_json,
-            { 
-                content_type: :json, 
-                accept: :json
-            })   
-            
-        respond_with :message, text: 'loading...', parse_mode: 'Markdown'       
+        text = Scraper.new(ENV.fetch('SCRAPER_SERVICE') { 'scraperapi' }).make_request(@chat_config, message_text)
+        respond_with :message, text: text, parse_mode: 'Markdown'       
 
     rescue => e
         puts e.message
