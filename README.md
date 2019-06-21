@@ -1,5 +1,5 @@
 <div align="center">
-    <img src="https://translation-dictionary-telegram-bot.s3.amazonaws.com/3cc82d2de02993c9f82ebf393fdf9edb-maneki-neko-cat-by-vexels.png" alt="Cat">
+    <img src="https://translation-dictionary-telegram-bot.s3.amazonaws.com/3cc82d2de02993c9f82ebf393fdf9edb-maneki-neko-cat-by-vexels.png" alt="Cat" width="170">
     <h1>Translation Dictionary Telegram Bot</h1>
 </div>
 
