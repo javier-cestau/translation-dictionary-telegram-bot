@@ -4,9 +4,11 @@ en:
       translating: 'Translating...'
   app:
     error: '🚨 We are experiencing some problems, try again later.'
-  command:
-    language_source:
-      error: | 
+    messages:
+      error: |
+        😔 Sorry, We did not find any results related to *%{message_text}*
+        Maybe you meant to say:
+          ...
   command:
     language: 
       initial_text: |

@@ -4,9 +4,10 @@ class TelegramController < Telegram::Bot::UpdatesController
     before_action :set_locale
     before_action :find_chat
     
+    include Config
     include Help
-    include Language
     include Hidden
+    include Language
     
     def start!
         language_from = "#{WORDREFERENCE_LANGUAGES[@chat_config.language_source.to_sym][:title]} #{WORDREFERENCE_LANGUAGES[@chat_config.language_source.to_sym][:icon]}"
