@@ -28,7 +28,7 @@ class TelegramController < Telegram::Bot::UpdatesController
     end
   
     def message(message)
-        message_text = message[:text].gsub EMOJI_REGEX, ''
+        message_text = message[:text].downcase.gsub EMOJI_REGEX, ''
         if message_text.length == 0
             return respond_with :message, text: 'No emojis pls 😡', parse_mode: 'Markdown'        
         end
