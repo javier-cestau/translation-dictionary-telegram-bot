@@ -29,6 +29,7 @@ gem 'dalli'
 gem "down"
 gem 'figaro'
 gem 'httparty'
+gem 'newrelic_rpm'
 gem 'pry'
 gem 'rest-client'
 gem 'rinruby'
