@@ -5,9 +5,8 @@ module Translation
             to_word_unformatted =  r.get_var('to_word')
             language_source =  r.get_var('language_source')
             language_translation =  r.get_var('language_translation')
-            
-            from_word_formatted = from_word_unformatted.class == Array ?  from_word_unformatted.uniq.map(&:strip).join(', ') : from_word_unformatted
-            to_word_formatted = to_word_unformatted.class == Array ?  to_word_unformatted.uniq.map(&:strip).join(', ') : to_word_unformatted
+            from_word_formatted = from_word_unformatted.class == Array ?  from_word_unformatted.uniq.map(&:strip).reject(&:empty?).join(', ') : from_word_unformatted
+            to_word_formatted = to_word_unformatted.class == Array ?  to_word_unformatted.uniq.map(&:strip).reject(&:empty?).join(', ') : to_word_unformatted
             
             
             if from_word_formatted.empty? || to_word_formatted.empty?
