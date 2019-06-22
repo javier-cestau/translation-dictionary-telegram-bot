@@ -13,7 +13,7 @@ class TelegramWebhookController < ApplicationController
      
         r = RHandler.new
 
-        r.source('translate.R', "#{Rails.root}/public/translations/#{format_message_text}.html")
+        r.source('wordreference_scraper.R', "#{Rails.root}/public/translations/#{format_message_text}.html")
         
         check_language_translated(body_apify['html'])
         text = Translation::Message.generate(r, @chat_config, message_text)

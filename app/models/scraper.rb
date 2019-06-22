@@ -39,7 +39,7 @@ class Scraper
         else
             url_scraper_api = "http://api.scraperapi.com?api_key=#{ENV['SCARPER_API_KEY']}&url=#{URI.encode(url)}"
             r = RHandler.new
-            r.source('translate.R', Rails.env.production? ? url_scraper_api : URI.encode(url) ) # Avoid spend monthly requests on scaperAPI service on development
+            r.source('wordreference_scraper.R', Rails.env.production? ? url_scraper_api : URI.encode(url) ) # Avoid spend monthly requests on scaperAPI service on development
             text = Translation::Message.generate(r, chat_config, message_text)
         end
 

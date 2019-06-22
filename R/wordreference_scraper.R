@@ -19,10 +19,27 @@ translate <- function(url){
   } else {
     assign("to_word", sapply(to_word, URLencode),  envir = .GlobalEnv)
   }
-
+  
   if (length(from_word) == 1) {
     assign("from_word", URLencode(from_word),  envir = .GlobalEnv)
   } else {
     assign("from_word", sapply(from_word, URLencode),  envir = .GlobalEnv)
   }
+  
+  language_source <- site %>%
+    html_node(xpath = '/html/head/meta[3]') %>%
+    html_attr('content')
+  
+  if (language_source %in% c("en,es", "es,en")) {
+    language_translation <- str_split(language_source, ",")[[1]][2]
+    language_source <- str_split(language_source, ",")[[1]][1] 
+  } else {
+    lang <- site %>% html_node('#nav > a') %>% html_attr("href")
+    language_source <- lang %>% str_sub(start = 2, end = -4)
+    language_translation <- lang %>% str_sub(start = 4, end = -2)
+  }
+  
+  assign("language_source", language_source, envir = .GlobalEnv)
+  assign("language_translation", language_translation, envir = .GlobalEnv)
+  
 }

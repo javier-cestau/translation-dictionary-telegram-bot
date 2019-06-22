@@ -26,15 +26,15 @@ gem 'puma', '~> 3.11'
 gem 'bootsnap', '>= 1.1.0', require: false
 
 gem 'dalli'
-gem 'pry'
 gem "down"
-gem 'httparty'
-gem 'rest-client'
 gem 'figaro'
-gem 'telegram-bot'
-gem 'telegram-bot-types'
+gem 'httparty'
+gem 'pry'
+gem 'rest-client'
 gem 'rinruby'
 gem 'sentry-raven'
+gem 'telegram-bot'
+gem 'telegram-bot-types'
 
 
 group :development, :test do
