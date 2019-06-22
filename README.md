@@ -14,7 +14,7 @@ Right now, I only have found a slow service to scrap website that doesn't has pr
 # Commands
 
 - /language - Change language translation
-- /swap - Swap current language translation
+- /swap - Switch fast your current language translation
 - /source - Change source dictionary
 - /config - See current configuration
 - /help - Get Help
