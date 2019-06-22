@@ -1,6 +1,6 @@
 library(dplyr)
 library(rvest)
-library(stringi)
+library(stringr)
 
 translate <- function(url){
   site <- read_html(iconv(url, to = "UTF-8"), encoding = "utf8")
