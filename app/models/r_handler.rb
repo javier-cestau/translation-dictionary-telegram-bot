@@ -24,7 +24,7 @@ class RHandler
     end
 
     def quit
-        if !Rails.env.production?
+        if Rails.env.production?
             @r.quit()
         end
     end
