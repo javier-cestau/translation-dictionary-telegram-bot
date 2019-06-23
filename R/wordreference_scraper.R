@@ -1,6 +1,7 @@
 library(dplyr)
 library(rvest)
 library(stringr)
+library(purrr)
 
 translate <- function(url){
   site <- read_html(iconv(url, to = "UTF-8"), encoding = "utf8")
@@ -14,7 +15,18 @@ translate <- function(url){
     html_nodes(xpath = 'text()') %>%
     html_text()
   
-  if (length(to_word) > 1) {
+  if (is_empty(c(from_word, to_word))) {
+    from_word <- site %>%
+      html_nodes('#article table.WRD:first-of-type .even .FrWrd strong') %>%
+      html_text()
+    
+    to_word <- site %>% 
+      html_nodes('#article table.WRD:first-of-type .even .ToWrd') %>%
+      html_nodes(xpath = 'text()') %>%
+      html_text()
+  }
+  
+   if (length(to_word) > 1) {
     assign("to_word", sapply(to_word, URLencode),  envir = .GlobalEnv)
   } else {
     global_to_word <- if ( length(to_word) == 1) URLencode(to_word) else ''
