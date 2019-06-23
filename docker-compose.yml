@@ -12,6 +12,13 @@ services:
     ports:
       - '5433:5432'
       
+  redis:
+    networks: 
+      - app_connector    
+    image: redis:latest
+    ports:
+      - '6379:6379'
+
   javierc-bot:
     networks: 
       - app_connector
@@ -33,6 +40,7 @@ services:
       - '3035:3035'
     depends_on:
       - postgres
+      - redis
     command: bash -c "rails telegram:bot:set_webhook && tail -f /dev/null"
     #  command: bash -c "rm -f tmp/pids/server.pid && rails s -b 0.0.0.0"
 
