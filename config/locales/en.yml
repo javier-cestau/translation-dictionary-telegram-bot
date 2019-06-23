@@ -9,6 +9,7 @@ en:
         😔 Sorry, We did not find any results related to *%{message_text}*
         Maybe you meant to say:
           ...
+      to: to
   command:
     language: 
       initial_text: |

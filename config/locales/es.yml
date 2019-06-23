@@ -1,4 +1,31 @@
 es:
+  service:
+    apify:
+      translating: 'Traduciendo...'
+  app:
+    error: '🚨 Estamos experimentando algunos problemas, por favor intente más tarde'
+    messages:
+      error: |
+        😔 Disculpe, no encontramos ningún resultado relacionado con *%{message_text}*
+        Quizás quiso decir:
+          ...
+      to: a
+  command:
+    language: 
+      initial_text: |
+        De cuál idioma le gustaría traducir? 
+        Seleccione uno de los siguientes códigos: 
+        %{options}
+      second_text: |
+        Para *%{language_source}* tenemos disponibles los siguientes idiomas:
+        %{options}
+      translate_from_to: Traduciremos de *%{language_from}* a *%{language_to}*
+      error: | 
+        ⚠️ Disculpe, No reconocimos el idioma que escribió. 
+        Por favor use /language otra vez para configurar la traducción.
+    config: |
+          🔧 Su configuración actual es:
+          - Traducir de *%{language_from}* a *%{language_to}*
   languages:
     en: 'Inglés'
     es: 'Español'
