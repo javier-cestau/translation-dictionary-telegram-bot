@@ -40,15 +40,15 @@ class Scraper
 
             key_cache = "#{message_text.parameterize}:#{chat_config.language_source}#{chat_config.language_translation}"
 
-            # if Rails.cache.exist?("#{key_cache}:swap")
-            #     key_cache = "#{key_cache}:swap"
-            # elsif Rails.cache.exist?("#{message_text.parameterize}:#{chat_config.language_translation}#{chat_config.language_source}:swap")
-            #     key_cache = "#{message_text.parameterize}:#{chat_config.language_translation}#{chat_config.language_source}:swap"
-            # end
+            if Rails.cache.exist?("#{key_cache}:swap")
+                key_cache = "#{key_cache}:swap"
+            elsif Rails.cache.exist?("#{message_text.parameterize}:#{chat_config.language_translation}#{chat_config.language_source}:swap")
+                key_cache = "#{message_text.parameterize}:#{chat_config.language_translation}#{chat_config.language_source}:swap"
+            end
 
             if Rails.cache.exist?(key_cache)
+                puts key_cache
                 result = Rails.cache.fetch(key_cache)
-                puts 'cacheado'
             else
                 url_scraper_api = "http://api.scraperapi.com?api_key=#{ENV['SCARPER_API_KEY']}&url=#{URI.encode(url)}"
                 r = RHandler.new
@@ -58,6 +58,7 @@ class Scraper
             end
 
             splited_text = result.split("***")
+            
             if splited_text.length != 1
                 language_source = splited_text[0]
                 language_translation = splited_text[1]

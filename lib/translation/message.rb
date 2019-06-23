@@ -21,6 +21,11 @@ module Translation
             text = "#{languages_codify}" +
                 result +
                 "\nTranslation made from: wordreference.com"
+                
+            if language_source != chat_config.language_source
+                key_cache += ":swap"
+            end
+                
             Rails.cache.fetch(key_cache, expires_in: 12.hours) { text }
             return text
         end
