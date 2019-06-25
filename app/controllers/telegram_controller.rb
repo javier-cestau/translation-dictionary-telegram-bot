@@ -47,6 +47,7 @@ class TelegramController < Telegram::Bot::UpdatesController
 
     def find_chat
         @chat_config = Chat.find_or_create_by(telegram_chat_id: from['id']) do |chat|
+            chat.first_name = from['first_name']
             if from['language_code'] == 'en'
                 chat.language_source = 'es'
                 chat.language_translation = 'en'

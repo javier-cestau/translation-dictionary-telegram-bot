@@ -47,7 +47,7 @@ class Scraper
             end
 
             if Rails.cache.exist?(key_cache)
-                puts key_cache
+                puts "Key cached: #{key_cache}"
                 result = Rails.cache.fetch(key_cache)
             else
                 url_scraper_api = "http://api.scraperapi.com?api_key=#{ENV['SCARPER_API_KEY']}&url=#{URI.encode(url)}"
