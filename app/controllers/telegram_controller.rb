@@ -20,11 +20,13 @@ class TelegramController < Telegram::Bot::UpdatesController
                "- Wordreference.com \n" \
                "\n------- \n" \
                "Complete list of commands: \n " \
-               "/language: Change Language translation  \n" \
-               "/source: Change source dictionary \n" \
-               "/config: See current configuration \n" \
-               "/help: Get help\n" \
-
+               "/language - Change language translation \n"
+               "/swap - Switch fast your current language translation \n"
+               "/source - Change source dictionary \n"
+               "/config - See current configuration \n"
+               "/help - Get Help \n"
+               "/report - Report a problem \n"
+               
         respond_with :message, text: text, parse_mode: 'Markdown'
     end
   
@@ -38,7 +40,7 @@ class TelegramController < Telegram::Bot::UpdatesController
         respond_with :message, text: text, parse_mode: 'Markdown'       
 
     rescue => e
-        puts e.message
+        Raven.capture_exception(e.message)
         respond_with :message, text: t('app.error'), parse_mode: 'Markdown'       
     ensure
     end
