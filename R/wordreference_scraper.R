@@ -15,6 +15,18 @@ translate <- function(url){
     html_nodes(xpath = 'text()') %>%
     html_text()
   
+  script <- site %>%
+    html_nodes("#articleHead > script") %>% 
+    html_attr("src")
+  
+  if (!is_empty(script)) {
+    suggestions <- read_html(script) %>%
+      html_nodes("a") %>% 
+      html_text()
+    
+    assign("suggestions", suggestions, envir = .GlobalEnv)
+  }
+  
   if (is_empty(c(from_word, to_word))) {
     from_word <- site %>%
       html_nodes('#article table.WRD:first-of-type .even .FrWrd strong') %>%
@@ -26,7 +38,7 @@ translate <- function(url){
       html_text()
   }
   
-   if (length(to_word) > 1) {
+  if (length(to_word) > 1) {
     assign("to_word", sapply(to_word, URLencode),  envir = .GlobalEnv)
   } else {
     global_to_word <- if ( length(to_word) == 1) URLencode(to_word) else ''

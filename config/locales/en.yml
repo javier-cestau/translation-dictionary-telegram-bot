@@ -8,7 +8,7 @@ en:
       error: |
         😔 Sorry, We did not find any results related to *%{message_text}*
         Maybe you meant to say:
-          ...
+        %{suggestions}
       to: to
   command:
     language: 
