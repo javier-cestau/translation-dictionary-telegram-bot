@@ -19,12 +19,16 @@ translate <- function(url){
     html_nodes("#articleHead > script") %>% 
     html_attr("src")
   
-  if (!is_empty(script)) {
+  if (!is.na(script)) {
     suggestions <- read_html(script) %>%
       html_nodes("a") %>% 
       html_text()
     
-    assign("suggestions", suggestions, envir = .GlobalEnv)
+    if (is_empty(suggestions)) {
+      assign("suggestions", '', envir = .GlobalEnv)
+    } else {
+      assign("suggestions", suggestions, envir = .GlobalEnv)
+    }
   }
   
   if (is_empty(c(from_word, to_word))) {

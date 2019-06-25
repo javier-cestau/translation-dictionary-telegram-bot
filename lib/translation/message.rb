@@ -10,9 +10,17 @@ module Translation
             to_word_formatted = to_word_unformatted.class == Array ?  to_word_unformatted.uniq.map(&:strip).reject(&:empty?).join(', ') : to_word_unformatted
             
             if from_word_formatted.empty? || to_word_formatted.empty?
-                suggestions =  r.get_var('suggestions')
-                Rails.cache.fetch(key_cache, expires_in: 12.hours) { I18n.t('app.messages.error', { message_text: message_text, suggestions: suggestions.map{|word| "- #{word} \n" }.join }) }    
-                return I18n.t('app.messages.error', {message_text: message_text, suggestions: suggestions.map{|word| "- #{word} \n" }.join})
+                suggestions_unformatted =  r.get_var('suggestions') 
+                suggestions = suggestions_unformatted.class == Array ? suggestions_unformatted.map{|word| "- #{word} \n" }.join : suggestions_unformatted
+                
+                if suggestions.empty? 
+                    Rails.cache.fetch(key_cache, expires_in: 12.hours) { I18n.t('app.messages.error', { message_text: message_text } ) }    
+                    return I18n.t('app.messages.error', {message_text: message_text})
+                else 
+                    Rails.cache.fetch(key_cache, expires_in: 12.hours) { I18n.t('app.messages.error_with_suggestion', { message_text: message_text, suggestions: suggestions }) } 
+                    return I18n.t('app.messages.error_with_suggestion', {message_text: message_text, suggestions: suggestions })
+                end
+
             end
             
             result = "- #{from_word_formatted}: #{to_word_formatted} \n"
