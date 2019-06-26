@@ -7,7 +7,7 @@ es:
     messages:
       translation_made: Traducido desde 
       welcome: |
-        Hola,  Bienvenido a tu diccionari de idiomas 📖
+        Hola, Bienvenido a tu diccionario de idiomas 📖
         
         Vamos a trducir de *%{language_from}* a *%{language_to}*,  
         pero tu puedes cambiarlo cuando quieras con el comando /language
