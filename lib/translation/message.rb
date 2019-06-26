@@ -29,7 +29,7 @@ module Translation
 
             text = "#{languages_codify}" +
                 result +
-                "\nTranslation made from: wordreference.com"
+                "\n #{I18n.t('app.messages.translation_made')}: #{@chat_config.website_source}"
                 
             if language_source != chat_config.language_source
                 key_cache += ":swap"

@@ -8,7 +8,8 @@ module Config
         respond_with :message, 
                     text: I18n.t('command.config',  {
                                                                             language_from: language_from, 
-                                                                            language_to: language_to 
+                                                                            language_to: language_to,
+                                                                            website_source: @chat_config.website_source
                                                                         }), 
                     parse_mode: 'Markdown'
         

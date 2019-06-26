@@ -1,6 +1,6 @@
 class TelegramWebhookController < ApplicationController
     
-    # This controller will be used only by Apify service
+    # This controller will be used only by Apify service, in case we decide to use that service
     include Translation
 
     def succeeded
