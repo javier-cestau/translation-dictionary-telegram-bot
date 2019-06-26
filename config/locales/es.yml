@@ -9,7 +9,7 @@ es:
       welcome: |
         Hola, Bienvenido a tu diccionario de idiomas 📖
         
-        Vamos a trducir de *%{language_from}* a *%{language_to}*,  
+        Vamos a traducir de *%{language_from}* a *%{language_to}*,  
         pero tu puedes cambiarlo cuando quieras con el comando /language
 
         Nuestras fuentes son diccionarios online como :  
