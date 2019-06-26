@@ -5,10 +5,42 @@ es:
   app:
     error: '🚨 Estamos experimentando algunos problemas, por favor intente más tarde'
     messages:
+      translation_made: Traducido desde 
+      welcome: |
+        Hola,  Bienvenido a tu diccionari de idiomas 📖
+        
+        Vamos a trducir de *%{language_from}* a *%{language_to}*,  
+        pero tu puedes cambiarlo cuando quieras con el comando /language
+
+        Nuestras fuentes son diccionarios online como :  
+        - wordreference.com 
+        - bab.la 
+        ------- 
+        Lista completa de comandos: 
+        /language - Elegir idioma para traducir
+        /swap - Cambiar rapido tu idioma a traducir
+        /source - Cambiar fuente online
+        /config - Ver configuración actual
+        /help - Obtener ayuda
+        /report - reportar un problema
+      help: |
+        Puedes cambiarlo cuando quieras con el comando /language
+
+        Tu configuración actual es: Traducir de *%{language_from}* a *%{language_to}*,  
+        ------- 
+        Lista completa de comandos: 
+        /language - Elegir idioma para traducir
+        /swap - Cambiar rapido tu idioma a traducir
+        /source - Cambiar fuente online
+        /config - Ver configuración actual
+        /help - Obtener ayuda
+        /report - reportar un problema
       error: |
         😔 Disculpe, no encontramos ningún resultado relacionado con *%{message_text}*
-        Quizás quiso decir:
-          ...
+      error_with_suggestion: |
+        😔 Sorry, We did not find any results related to *%{message_text}*
+        Maybe you meant to say:
+        %{suggestions}
       to: a
   command:
     language: 

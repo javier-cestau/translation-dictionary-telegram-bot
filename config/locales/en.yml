@@ -5,6 +5,7 @@ en:
   app:
     error: '🚨 We are experiencing some problems, try again later.'
     messages:
+      translation_made: Translation made from
       welcome: |
         Hi, Welcome to your translation dictionary 📖
         
