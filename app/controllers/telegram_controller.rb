@@ -14,20 +14,7 @@ class TelegramController < Telegram::Bot::UpdatesController
     def start!
         language_from = "#{WORDREFERENCE_LANGUAGES[@chat_config.language_source.to_sym][:title]} #{WORDREFERENCE_LANGUAGES[@chat_config.language_source.to_sym][:icon]}"
         language_to = "#{WORDREFERENCE_LANGUAGES[@chat_config.language_translation.to_sym][:title]} #{WORDREFERENCE_LANGUAGES[@chat_config.language_translation.to_sym][:icon]}"
-        text = "Hi, Welcome to your translation dictionary 📖\n" \
-               "\nWe will translate from *#{language_from}* to *#{language_to}*. \n" \
-               "but you can change the language anytime with /language \n" \
-               "\n We use online dictionaries sources such as:  \n" \
-               "- wordreference.com \n" \
-               "\n------- \n" \
-               "Complete list of commands: \n " \
-               "/language - Change language translation \n" \
-               "/swap - Switch fast your current language translation \n" \
-               "/source - Change source dictionary \n" \
-               "/config - See current configuration \n" \
-               "/help - Get Help \n" \
-               "/report - Report a problem \n"
-               
+        text = I18n.t('app.messages.welcome', { language_from: language_from, language_to: language_to})        
         respond_with :message, text: text, parse_mode: 'Markdown'
     end
   

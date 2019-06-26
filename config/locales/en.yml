@@ -5,6 +5,35 @@ en:
   app:
     error: '🚨 We are experiencing some problems, try again later.'
     messages:
+      welcome: |
+        Hi, Welcome to your translation dictionary 📖
+        
+        We will translate from *%{language_from}* to *%{language_to}*,  
+        but you can change the language anytime with /language command
+
+        We use online dictionaries sources such as:  
+        - wordreference.com 
+        - bab.la 
+        ------- 
+        Complete list of commands: 
+        /language - Change language translation 
+        /swap - Switch fast your current language translation 
+        /source - Change source dictionary 
+        /config - See current configuration 
+        /help - Get Help 
+        /report - Report a problem 
+      help: |
+        You can change the language anytime with /language command
+
+        Your current configuration is: Translate from *%{language_from}* to *%{language_to}*,  
+        ------- 
+        Complete list of commands: 
+        /language - Change language translation 
+        /swap - Switch fast your current language translation 
+        /source - Change source dictionary 
+        /config - See current configuration 
+        /help - Get Help 
+        /report - Report a problem 
       error: |
         😔 Sorry, We did not find any results related to *%{message_text}*
       error_with_suggestion: |
@@ -28,6 +57,7 @@ en:
     config: |
           🔧 Your current configuration is:
           - Translate from *%{language_from}* to *%{language_to}*
+          - Source of translation: *%{website_source}*
   languages:
     en: 'English'
     es: 'Spanish'
