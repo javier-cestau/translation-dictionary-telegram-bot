@@ -58,6 +58,7 @@ es:
     config: |
           🔧 Su configuración actual es:
           - Traducir de *%{language_from}* a *%{language_to}*
+          - Fuente de las traducciones: *%{website_source}*
   languages:
     en: 'Inglés'
     es: 'Español'
