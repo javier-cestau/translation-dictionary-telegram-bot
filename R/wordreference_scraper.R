@@ -7,19 +7,21 @@ translate <- function(url){
   site <- read_html(iconv(url, to = "UTF-8"), encoding = "utf8")
   
   from_word <- site %>%
-    html_nodes('#articleWRD table.WRD:first-of-type .even .FrWrd strong') %>%
+    html_nodes('#articleWRD table.WRD:first-of-type .even .FrWrd strong, #article table.WRD:first-of-type .even .FrWrd strong') %>%
     html_text()
   
   to_word <- site %>% 
-    html_nodes('#articleWRD table.WRD:first-of-type .even .ToWrd') %>%
+    html_nodes('#articleWRD table.WRD:first-of-type .even .ToWrd, #article table.WRD:first-of-type .even .ToWrd') %>%
     html_nodes(xpath = 'text()') %>%
     html_text()
+ 
   
-  script <- site %>%
-    html_nodes("#articleHead > script") %>% 
-    html_attr("src")
-  
-  if (!is.na(script)) {
+  if (is_empty(c(from_word, to_word))) {
+
+    script <- site %>%
+      html_nodes("#articleHead > script") %>% 
+      html_attr("src")
+
     suggestions <- read_html(script) %>%
       html_nodes("a") %>% 
       html_text()
@@ -29,17 +31,6 @@ translate <- function(url){
     } else {
       assign("suggestions", suggestions, envir = .GlobalEnv)
     }
-  }
-  
-  if (is_empty(c(from_word, to_word))) {
-    from_word <- site %>%
-      html_nodes('#article table.WRD:first-of-type .even .FrWrd strong') %>%
-      html_text()
-    
-    to_word <- site %>% 
-      html_nodes('#article table.WRD:first-of-type .even .ToWrd') %>%
-      html_nodes(xpath = 'text()') %>%
-      html_text()
   }
   
   if (length(to_word) > 1) {
