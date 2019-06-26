@@ -15,14 +15,14 @@ es:
       initial_text: |
         De cuál idioma le gustaría traducir? 
         Seleccione uno de los siguientes códigos: 
-        %{options}
       second_text: |
         Para *%{language_source}* tenemos disponibles los siguientes idiomas:
-        %{options}
-      translate_from_to: Traduciremos de *%{language_from}* a *%{language_to}*
+      translate_from_to: 👌 Traduciremos de *%{language_from}* a *%{language_to}*
       error: | 
         ⚠️ Disculpe, No reconocimos el idioma que escribió. 
         Por favor use /language otra vez para configurar la traducción.
+      error_match_languages: |
+        ⚠️ No podemos traducir de *%{language_from}* a *%{language_to}*
     config: |
           🔧 Su configuración actual es:
           - Traducir de *%{language_from}* a *%{language_to}*

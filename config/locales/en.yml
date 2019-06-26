@@ -17,14 +17,14 @@ en:
       initial_text: |
         From what language would you like to translate? 
         Select one of the following codes: 
-        %{options}
       second_text: |
         For *%{language_source}* we have available the following languages:
-        %{options}
-      translate_from_to: We'll translate from *%{language_from}* to *%{language_to}*
+      translate_from_to: 👌 We'll translate from *%{language_from}* to *%{language_to}*
       error: | 
         ⚠️ Sorry, We did not regonize the language that you wrote. 
         Please use /language again to set up the translation configuration.
+      error_match_languages: |
+        ⚠️ We cannot translate from *%{language_from}* to *%{language_to}*
     config: |
           🔧 Your current configuration is:
           - Translate from *%{language_from}* to *%{language_to}*

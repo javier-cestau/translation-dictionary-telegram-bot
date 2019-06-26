@@ -8,7 +8,7 @@ class Scraper
 
     def make_request(chat_config, message_text)
         url = "https://www.wordreference.com/#{chat_config.language_source}#{chat_config.language_translation}/#{message_text}"
-        puts url
+        puts URI.encode(url)
 
         key_cache = "#{message_text.parameterize}:#{chat_config.language_source}#{chat_config.language_translation}"
 

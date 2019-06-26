@@ -4,15 +4,19 @@ module Language
     def language!
         options = []
         WORDREFERENCE_LANGUAGES.each do |code, language_info|
-            options.push("#{language_info[:icon]} #{t("languages.#{code}")}: #{code}")
+            options.push({
+                text: "#{language_info[:icon]} #{t("languages.#{code}")} (#{code})",
+                callback_data: "source:#{code}"
+            })
         end
-        text = t('command.language.initial_text', { options: options.join("\n")})
+        text = t('command.language.initial_text')
 
-        save_context :language_source
-        respond_with :message, text: text, parse_mode: 'Markdown'
-    end
-     
-    def language_source(language_source= '',*)
+        respond_with :message, text: text, parse_mode: 'Markdown', reply_markup: {
+            inline_keyboard: options.each_slice(2).to_a
+          }
+    end     
+
+    def source_callback_query(language_source)
         language_source_code = language_source.length != 2 ? convert_word_language_to_code(language_source.downcase) 
                                                            : language_source.downcase
 
@@ -22,36 +26,62 @@ module Language
                                                     
         options = []
         WORDREFERENCE_LANGUAGES[language_source_code.to_sym][:translate_to].each do |code|
-            options.push("#{WORDREFERENCE_LANGUAGES[code.to_sym][:icon]} #{t("languages.#{code}")}: #{code}")
+            options.push({
+                text: "#{WORDREFERENCE_LANGUAGES[code.to_sym][:icon]} #{t("languages.#{code}")} (#{code})",
+                callback_data: "translation:#{code}"
+            })
+
         end
 
         language_source_text = "#{WORDREFERENCE_LANGUAGES[language_source_code.to_sym][:icon]} #{t("languages.#{language_source_code}")}"
         
-        text = t('command.language.second_text', { options: options.join("\n"), language_source: language_source_text }) 
+        text = t('command.language.second_text', { language_source: language_source_text }) 
      
         session[:language_source] = language_source_code
-        save_context :language_translation
-        respond_with :message, text: text, parse_mode: 'Markdown'
+        respond_with :message, text: text, parse_mode: 'Markdown', reply_markup: {
+            inline_keyboard: options.each_slice(2).to_a
+        }
     end
- 
- 
-    def language_translation(translation= '',*)
+    
+    def translation_callback_query(translation)
+        return if session[:language_source].nil?
         translation_code = translation.length != 2 ? convert_word_language_to_code(translation.downcase) 
                                                    : translation.downcase
         if translation_code.nil?
             return respond_with :message, text: t('command.language.error'), parse_mode: 'Markdown'
         end       
-                                        
-        @chat_config.update(language_translation: translation_code, language_source: session[:language_source] )
 
-        language_from = "#{t("languages.#{@chat_config.language_source}")} #{WORDREFERENCE_LANGUAGES[@chat_config.language_source.to_sym][:icon]}"
-        language_to = "#{t("languages.#{@chat_config.language_translation}")} #{WORDREFERENCE_LANGUAGES[@chat_config.language_translation.to_sym][:icon]}"
+        language_from = "#{t("languages.#{session[:language_source]}")} #{WORDREFERENCE_LANGUAGES[session[:language_source].to_sym][:icon]}"
+        language_to = "#{t("languages.#{translation}")} #{WORDREFERENCE_LANGUAGES[translation.to_sym][:icon]}"
+        WORDREFERENCE_LANGUAGES[session[:language_source].to_sym][:translate_to].each do |code|
+        
+            #
+            # This means that we can translate from the select languages 
+            # which the user has selected
+            #
+            
+            if code == translation
+                @chat_config.update(language_translation: translation_code, language_source: session[:language_source] )
+        
+                session[:language_source] = nil
+                # SUCCESS
+                respond_with :message, 
+                                    text: I18n.t('command.language.translate_from_to',  {
+                                                                    language_from: language_from, 
+                                                                    language_to: language_to 
+                                                                }), 
+                                    parse_mode: 'Markdown'
+                return
+            end
+        end
+
+        # ERROR
         respond_with :message, 
-                    text: I18n.t('command.language.translate_from_to',  {
-                                                                            language_from: language_from, 
-                                                                            language_to: language_to 
-                                                                        }), 
-                    parse_mode: 'Markdown'
+                text: I18n.t('command.language.error_match_languages',  {
+                                                language_from: language_from, 
+                                                language_to: language_to 
+                                            }), 
+                parse_mode: 'Markdown'
     end
     
     private 

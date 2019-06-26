@@ -1,5 +1,6 @@
 class TelegramController < Telegram::Bot::UpdatesController
     include Telegram::Bot::UpdatesController::MessageContext
+    include Telegram::Bot::UpdatesController::CallbackQueryContext
     
     before_action :set_locale
     before_action :find_chat
@@ -17,14 +18,14 @@ class TelegramController < Telegram::Bot::UpdatesController
                "\nWe will translate from *#{language_from}* to *#{language_to}*. \n" \
                "but you can change the language anytime with /language \n" \
                "\n We use online dictionaries sources such as:  \n" \
-               "- Wordreference.com \n" \
+               "- wordreference.com \n" \
                "\n------- \n" \
                "Complete list of commands: \n " \
-               "/language - Change language translation \n"
-               "/swap - Switch fast your current language translation \n"
-               "/source - Change source dictionary \n"
-               "/config - See current configuration \n"
-               "/help - Get Help \n"
+               "/language - Change language translation \n" \
+               "/swap - Switch fast your current language translation \n" \
+               "/source - Change source dictionary \n" \
+               "/config - See current configuration \n" \
+               "/help - Get Help \n" \
                "/report - Report a problem \n"
                
         respond_with :message, text: text, parse_mode: 'Markdown'
