@@ -16,9 +16,7 @@ module Language
           }
     end     
 
-    def source_callback_query(language_source)
-        language_source_code = language_source.length != 2 ? convert_word_language_to_code(language_source.downcase) 
-                                                           : language_source.downcase
+    def source_callback_query(language_source_code)
 
         if language_source_code.nil?
             return respond_with :message, text: t('command.language.error'), parse_mode: 'Markdown'
@@ -43,16 +41,15 @@ module Language
         }
     end
     
-    def translation_callback_query(translation)
+    def translation_callback_query(translation_code)
         return if session[:language_source].nil?
-        translation_code = translation.length != 2 ? convert_word_language_to_code(translation.downcase) 
-                                                   : translation.downcase
+
         if translation_code.nil?
             return respond_with :message, text: t('command.language.error'), parse_mode: 'Markdown'
         end       
 
         language_from = "#{t("languages.#{session[:language_source]}")} #{WORDREFERENCE_LANGUAGES[session[:language_source].to_sym][:icon]}"
-        language_to = "#{t("languages.#{translation}")} #{WORDREFERENCE_LANGUAGES[translation.to_sym][:icon]}"
+        language_to = "#{t("languages.#{translation_code}")} #{WORDREFERENCE_LANGUAGES[translation_code.to_sym][:icon]}"
         WORDREFERENCE_LANGUAGES[session[:language_source].to_sym][:translate_to].each do |code|
         
             #
@@ -60,7 +57,7 @@ module Language
             # which the user has selected
             #
             
-            if code == translation
+            if code == translation_code
                 @chat_config.update(language_translation: translation_code, language_source: session[:language_source] )
         
                 session[:language_source] = nil
@@ -83,19 +80,6 @@ module Language
                                             }), 
                 parse_mode: 'Markdown'
     end
-    
-    private 
 
-    def convert_word_language_to_code(language_word)
-        I18n.available_locales.each do |locale|
-            I18n.backend.send(:translations)[locale][:languages].each do |list_locale|
-                if I18n.transliterate(language_word).downcase == I18n.transliterate(t("languages.#{list_locale[0]}", :locale => locale)).downcase
-                    return list_locale[0]
-                end
-            end
-        end
-        return nil
-    end
-    
 end
   
