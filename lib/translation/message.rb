@@ -35,7 +35,7 @@ module Translation
                 key_cache += ":swap"
             end
                 
-            Rails.cache.fetch(key_cache, expires_in: 12.hours) { text }
+            Rails.cache.fetch(key_cache, expires_in: 1.year) { text }
             return text
         end
     end
