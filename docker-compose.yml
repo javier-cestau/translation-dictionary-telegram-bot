@@ -41,7 +41,7 @@ services:
     depends_on:
       - postgres
       - redis
-    command: bash -c "rails telegram:bot:set_webhook && tail -f /dev/null"
+    command: bash -c "nohup bundle exec sidekiq && rails telegram:bot:set_webhook && tail -f /dev/null"
     #  command: bash -c "rm -f tmp/pids/server.pid && rails s -b 0.0.0.0"
 
 volumes:

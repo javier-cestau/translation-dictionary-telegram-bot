@@ -1,0 +1,14 @@
+---
+:verbose: true
+:concurrency: 25
+
+:timeout: 8
+
+:queues:
+ - contact_mailer
+ - confirmation_mailer
+ - [mailers, 4]
+ - [default, 2]
+
+production:
+ :concurrency: 10

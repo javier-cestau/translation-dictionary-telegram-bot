@@ -52,7 +52,7 @@ Rails.application.configure do
   # config.cache_store = :mem_cache_store
 
   # Use a real queuing backend for Active Job (and separate queues per environment)
-  # config.active_job.queue_adapter     = :resque
+  config.active_job.queue_adapter     = :async
   # config.active_job.queue_name_prefix = "telegram-bot_#{Rails.env}"
 
   config.action_mailer.perform_caching = false
@@ -92,5 +92,14 @@ Rails.application.configure do
     protocol: 'https'
   }
 
+  config.action_mailer.smtp_settings = {
+    address: 'smtp.sendgrid.net',
+    port: 587,
+    domain: ENV['ACTION_MAILER_DOMAIN_NAME'],
+    authentication: 'plain',
+    enable_starttls_auto: true,
+    user_name: ENV['SENDGRID_USERNAME'],
+    password: ENV['SENDGRID_PASSWORD']
+  }
   
 end

@@ -9,6 +9,7 @@ class TelegramController < Telegram::Bot::UpdatesController
     include Help
     include Hidden
     include Language
+    include Report
     include Swap
     
     def start!
