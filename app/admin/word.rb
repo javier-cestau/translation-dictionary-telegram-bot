@@ -5,6 +5,7 @@ ActiveAdmin.register Word do
     column :text
     column :times_searched
     column :language_source
+    column :language_translation
   end
   
 end

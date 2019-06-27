@@ -70,10 +70,11 @@ class Scraper
             text = "#{language_from} *#{message_text}* #{I18n.t('app.messages.to')} #{language_to}: \n " + splited_text[2]
         else
             language_source = chat_config.language_source
+            language_translation = chat_config.language_translation
             text = result
         end
 
-        Word.find_or_create_by(text: message_text, language_source: language_source).increment!(:times_searched)
+        Word.find_or_create_by(text: message_text, language_source: language_source, language_translation: language_translation).increment!(:times_searched)
 
         return text
     end
