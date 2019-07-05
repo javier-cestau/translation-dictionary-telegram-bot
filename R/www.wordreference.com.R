@@ -7,21 +7,24 @@ translate <- function(url){
   site <- read_html(iconv(url, to = "UTF-8"), encoding = "utf8")
   
   from_word <- site %>%
-    html_nodes('#articleWRD table.WRD:first-of-type .even .FrWrd strong, #article table.WRD:first-of-type .even .FrWrd strong') %>%
-    html_text()
+    html_nodes('#articleWRD table.WRD:first-of-type .even .FrWrd strong, 
+               #article table.WRD:first-of-type .even .FrWrd strong') %>%
+    html_text() %>%
+    str_remove_all("⇒")
   
   to_word <- site %>% 
-    html_nodes('#articleWRD table.WRD:first-of-type .even .ToWrd, #article table.WRD:first-of-type .even .ToWrd') %>%
+    html_nodes('#articleWRD table.WRD:first-of-type .even .ToWrd, 
+               #article table.WRD:first-of-type .even .ToWrd') %>%
     html_nodes(xpath = 'text()') %>%
-    html_text()
- 
+    html_text() %>%
+    str_remove_all("⇒")
   
   if (is_empty(c(from_word, to_word))) {
-
+    
     script <- site %>%
       html_nodes("#articleHead > script") %>% 
       html_attr("src")
-
+    
     suggestions <- read_html(script) %>%
       html_nodes("a") %>% 
       html_text()
