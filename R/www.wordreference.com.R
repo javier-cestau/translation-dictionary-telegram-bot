@@ -10,14 +10,14 @@ translate <- function(url){
     html_nodes('#articleWRD table.WRD:first-of-type .even .FrWrd strong, 
                #article table.WRD:first-of-type .even .FrWrd strong') %>%
     html_text() %>%
-    str_remove_all("⇒")
+    str_remove_all("\u21D2")
   
   to_word <- site %>% 
     html_nodes('#articleWRD table.WRD:first-of-type .even .ToWrd, 
                #article table.WRD:first-of-type .even .ToWrd') %>%
     html_nodes(xpath = 'text()') %>%
     html_text() %>%
-    str_remove_all("⇒")
+    str_remove_all("\u21D2")
   
   if (is_empty(c(from_word, to_word))) {
     
